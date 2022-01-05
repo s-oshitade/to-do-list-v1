@@ -10,9 +10,10 @@
   <h1> <%= kindOfDay %> </h1>
 
   <ul>
-    <li>Buy Food</li>
-    <li>Cook Food</li>
-    <li>Eat Food</li>
+      <% for(let listItem of newListItems ){ %>
+        <li><%= listItem %></li>
+     <% } %>
+  
   </ul>
   <form action="/" method="POST">
     <input type="text" name="newItem">
