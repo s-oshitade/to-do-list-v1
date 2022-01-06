@@ -5,6 +5,7 @@ const port = 3000;
 const app = express();
 
 let items = ["Code everyday", "Exercise before shower", "Give thanks"];
+let workItems = [];
 
 app.set('view engine', 'ejs');
 
@@ -28,7 +29,7 @@ app.get('/', (req, res) => {
 
 
   res.render("list", {
-    kindOfDay: day,
+    listTitle: day,
     newListItems: items
   });
 
@@ -36,8 +37,21 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
   let item = req.body.newItem;
-  items.push(item);
-  res.redirect("/");
+  if(req.body.list === "Work List"){
+      workItems.push(item);
+      res.redirect("/work")
+  } else {
+   items.push(item);
+   res.redirect("/");   
+  }
+})
+
+app.get("/work", (req, res) => {
+  res.render("list", {listTitle: "Work List", newListItems: workItems})
+})
+
+app.get("/about", (req, res) => {
+  res.render("about");
 })
 
 app.listen(port, () => {
